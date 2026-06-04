@@ -1,12 +1,17 @@
-import { Card, Button } from "react-bootstrap";
+import { Card, Button, Alert } from "react-bootstrap";
 import type { Product } from "../types/Product";
 
 interface ProductCardProps {
   product: Product;
   onAddToCart: (product: Product) => void;
+  showSuccess: boolean;
 }
 
-const ProductCard = ({ product, onAddToCart }: ProductCardProps) => {
+const ProductCard = ({
+  product,
+  onAddToCart,
+  showSuccess,
+}: ProductCardProps) => {
   return (
     <Card className="h-100 shadow-sm">
       <Card.Img
@@ -25,7 +30,14 @@ const ProductCard = ({ product, onAddToCart }: ProductCardProps) => {
       />
 
       <Card.Body className="d-flex flex-column">
-        <Card.Title>{product.title}</Card.Title>
+        <Card.Title
+          style={{
+            minHeight: "60px",
+            fontSize: "1rem",
+          }}
+        >
+          {product.title}
+        </Card.Title>
 
         <Card.Text>
           <strong>Price:</strong> ${product.price.toFixed(2)}
@@ -35,7 +47,13 @@ const ProductCard = ({ product, onAddToCart }: ProductCardProps) => {
           <strong>Rating:</strong> {product.rating.rate} / 5
         </Card.Text>
 
-        <Card.Text>{product.description}</Card.Text>
+        <Card.Text>{product.description.slice(0, 120)}...</Card.Text>
+
+        {showSuccess && (
+          <Alert variant="success" className="py-1 mb-2">
+            Added to Cart!
+          </Alert>
+        )}
 
         <Button className="mt-auto" onClick={() => onAddToCart(product)}>
           Add to Cart

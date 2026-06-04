@@ -16,6 +16,7 @@ import CategoryFilter from "../components/CategoryFilter";
 const HomePage = () => {
   const dispatch = useDispatch<AppDispatch>();
   const [selectedCategory, setSelectedCategory] = useState("all");
+  const [lastAddedId, setLastAddedId] = useState<number | null>(null);
 
   const {
     data: categories,
@@ -40,6 +41,12 @@ const HomePage = () => {
 
   const handleAddToCart = (product: Product) => {
     dispatch(addToCart(product));
+
+    setLastAddedId(product.id);
+
+    setTimeout(() => {
+      setLastAddedId(null);
+    }, 2000);
   };
 
   if (categoriesLoading || productsLoading) {
@@ -76,8 +83,12 @@ const HomePage = () => {
 
       <Row>
         {products?.map((product) => (
-          <Col md={4} className="mb-4" key={product.id}>
-            <ProductCard product={product} onAddToCart={handleAddToCart} />
+          <Col lg={4} md={6} sm={12} className="mb-4" key={product.id}>
+            <ProductCard
+              product={product}
+              onAddToCart={handleAddToCart}
+              showSuccess={lastAddedId === product.id}
+            />
           </Col>
         ))}
       </Row>
