@@ -33,6 +33,14 @@ const NavBar = () => {
           <Nav.Link as={Link} to="/profile">
             Profile
           </Nav.Link>
+
+          <Nav.Link as={Link} to="/products/manage">
+            Manage Products
+          </Nav.Link>
+
+          <Nav.Link as={Link} to="/orders">
+            Orders
+          </Nav.Link>
         </Nav>
       </Container>
     </Navbar>

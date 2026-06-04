@@ -3,8 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { clearCart, removeFromCart } from "../redux/cartSlice";
 import type { RootState, AppDispatch } from "../redux/store";
 import { useState } from "react";
+import { createOrder } from "../services/orderService";
+import { useAuthContext } from "../auth/AuthContext";
 
 const CartPage = () => {
+  const { currentUser } = useAuthContext();
   const [checkoutSuccess, setCheckoutSuccess] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
 
@@ -20,7 +23,19 @@ const CartPage = () => {
     0,
   );
 
-  const handleCheckout = () => {
+  const handleCheckout = async () => {
+    if (!currentUser) {
+      alert("Please log in before checking out.");
+      return;
+    }
+
+    await createOrder({
+      userId: currentUser.uid,
+      products: cartItems,
+      totalPrice,
+      createdAt: new Date().toISOString(),
+    });
+
     dispatch(clearCart());
 
     setCheckoutSuccess(true);

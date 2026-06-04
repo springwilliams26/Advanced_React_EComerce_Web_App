@@ -5,39 +5,31 @@ import { useDispatch } from "react-redux";
 import type { AppDispatch } from "../redux/store";
 import { addToCart } from "../redux/cartSlice";
 import type { Product } from "../types/Product";
-import {
-  fetchCategories,
-  fetchProducts,
-  fetchProductsByCategory,
-} from "../api/productApi";
+import {} from "../api/productApi";
 import ProductCard from "../components/ProductCard";
 import CategoryFilter from "../components/CategoryFilter";
+import { getProductsFromFirestore } from "../services/productService";
 
 const HomePage = () => {
   const dispatch = useDispatch<AppDispatch>();
   const [selectedCategory, setSelectedCategory] = useState("all");
-  const [lastAddedId, setLastAddedId] = useState<number | null>(null);
-
-  const {
-    data: categories,
-    isLoading: categoriesLoading,
-    error: categoriesError,
-  } = useQuery<string[]>({
-    queryKey: ["categories"],
-    queryFn: fetchCategories,
-  });
+  const [lastAddedId, setLastAddedId] = useState<string | null>(null);
 
   const {
     data: products,
     isLoading: productsLoading,
     error: productsError,
   } = useQuery<Product[]>({
-    queryKey: ["products", selectedCategory],
-    queryFn: () =>
-      selectedCategory === "all"
-        ? fetchProducts()
-        : fetchProductsByCategory(selectedCategory),
+    queryKey: ["products"],
+    queryFn: getProductsFromFirestore,
   });
+
+  const categories = [...new Set(products?.map((product) => product.category))];
+
+  const filteredProducts =
+    selectedCategory === "all"
+      ? products
+      : products?.filter((product) => product.category === selectedCategory);
 
   const handleAddToCart = (product: Product) => {
     dispatch(addToCart(product));
@@ -49,7 +41,7 @@ const HomePage = () => {
     }, 2000);
   };
 
-  if (categoriesLoading || productsLoading) {
+  if (productsLoading) {
     return (
       <Container className="mt-5 text-center">
         <Spinner animation="border" />
@@ -58,7 +50,7 @@ const HomePage = () => {
     );
   }
 
-  if (categoriesError || productsError) {
+  if (productsError) {
     return (
       <Container className="mt-5">
         <Alert variant="danger">There was an error loading products.</Alert>
@@ -82,7 +74,7 @@ const HomePage = () => {
       />
 
       <Row>
-        {products?.map((product) => (
+        {filteredProducts?.map((product) => (
           <Col lg={4} md={6} sm={12} className="mb-4" key={product.id}>
             <ProductCard
               product={product}

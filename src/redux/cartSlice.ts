@@ -46,7 +46,7 @@ const cartSlice = createSlice({
       saveCartToSessionStorage(state.items);
     },
 
-    removeFromCart: (state, action: PayloadAction<number>) => {
+    removeFromCart: (state, action: PayloadAction<string>) => {
       const existingItem = state.items.find(
         (item) => item.id === action.payload,
       );

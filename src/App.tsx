@@ -5,6 +5,9 @@ import CartPage from "./pages/CartPage";
 import BackToTopButton from "./components/BackToTopButton";
 import AuthPage from "./pages/AuthPage";
 import ProfilePage from "./pages/ProfilePage";
+import ProductManagementPage from "./pages/ProductManagementPage";
+import OrderHistoryPage from "./pages/OrderHistoryPage";
+import OrderDetailsPage from "./pages/OrderDetailsPage";
 
 function App() {
   return (
@@ -16,6 +19,9 @@ function App() {
         <Route path="/cart" element={<CartPage />} />
         <Route path="/auth" element={<AuthPage />} />
         <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/products/manage" element={<ProductManagementPage />} />
+        <Route path="/orders" element={<OrderHistoryPage />} />
+        <Route path="/orders/:id" element={<OrderDetailsPage />} />
       </Routes>
 
       <BackToTopButton />
