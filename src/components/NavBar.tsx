@@ -29,6 +29,10 @@ const NavBar = () => {
           <Nav.Link as={Link} to="/auth">
             Login/Register
           </Nav.Link>
+
+          <Nav.Link as={Link} to="/profile">
+            Profile
+          </Nav.Link>
         </Nav>
       </Container>
     </Navbar>

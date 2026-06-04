@@ -4,6 +4,7 @@ import HomePage from "./pages/HomePage";
 import CartPage from "./pages/CartPage";
 import BackToTopButton from "./components/BackToTopButton";
 import AuthPage from "./pages/AuthPage";
+import ProfilePage from "./pages/ProfilePage";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/cart" element={<CartPage />} />
         <Route path="/auth" element={<AuthPage />} />
+        <Route path="/profile" element={<ProfilePage />} />
       </Routes>
 
       <BackToTopButton />
