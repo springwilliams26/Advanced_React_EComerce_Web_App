@@ -1,4 +1,4 @@
-import { Button, Card, Container } from "react-bootstrap";
+import { Alert, Button, Card, Container } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { clearCart, removeFromCart } from "../redux/cartSlice";
 import type { RootState, AppDispatch } from "../redux/store";
