@@ -2,8 +2,10 @@ import { Button, Card, Container } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { clearCart, removeFromCart } from "../redux/cartSlice";
 import type { RootState, AppDispatch } from "../redux/store";
+import { useState } from "react";
 
 const CartPage = () => {
+  const [checkoutSuccess, setCheckoutSuccess] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
 
   const cartItems = useSelector((state: RootState) => state.cart.items);
@@ -21,19 +23,35 @@ const CartPage = () => {
   const handleCheckout = () => {
     dispatch(clearCart());
 
-    alert("Checkout Complete! Cart has been cleared.");
+    setCheckoutSuccess(true);
+
+    setTimeout(() => {
+      setCheckoutSuccess(false);
+    }, 3000);
   };
 
   return (
     <Container className="mt-4">
       <h1>Shopping Cart</h1>
 
-      <p>Total Items: {totalItems}</p>
+      {checkoutSuccess && (
+        <Alert variant="success">
+          Checkout Complete! Your cart has been cleared.
+        </Alert>
+      )}
 
-      <p>Total Price: ${totalPrice.toFixed(2)}</p>
+      <Card className="mb-4">
+        <Card.Body>
+          <h5>Total Items: {totalItems}</h5>
+          <h5>Total Price: ${totalPrice.toFixed(2)}</h5>
+        </Card.Body>
+      </Card>
 
       {cartItems.length === 0 ? (
-        <p>Your cart is empty.</p>
+        <Card className="text-center p-4">
+          <h4>Your cart is empty</h4>
+          <p>Add products from the catalog to begin shopping.</p>
+        </Card>
       ) : (
         <>
           {cartItems.map((item) => (

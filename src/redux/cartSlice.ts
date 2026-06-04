@@ -47,7 +47,15 @@ const cartSlice = createSlice({
     },
 
     removeFromCart: (state, action: PayloadAction<number>) => {
-      state.items = state.items.filter((item) => item.id !== action.payload);
+      const existingItem = state.items.find(
+        (item) => item.id === action.payload,
+      );
+
+      if (existingItem && existingItem.quantity > 1) {
+        existingItem.quantity -= 1;
+      } else {
+        state.items = state.items.filter((item) => item.id !== action.payload);
+      }
 
       saveCartToSessionStorage(state.items);
     },
