@@ -63,8 +63,8 @@ const HomePage = () => {
       <h1>Advanced E-Commerce Store</h1>
 
       <p>
-        Browse products from FakeStoreAPI, filter by category, and add items to
-        your shopping cart.
+        Browse products from Firebase database, filter by category, and add
+        items to your shopping cart.
       </p>
 
       <CategoryFilter

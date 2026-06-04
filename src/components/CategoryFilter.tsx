@@ -12,22 +12,24 @@ const CategoryFilter = ({
   onCategoryChange,
 }: CategoryFilterProps) => {
   return (
-    <Form.Group className="mb-4">
-      <Form.Label>Filter by Category</Form.Label>
+    <div className="text-center mb-4">
+      <Form.Group className="mx-auto" style={{ maxWidth: "350px" }}>
+        <Form.Label className="fw-bold">Filter by Category</Form.Label>
 
-      <Form.Select
-        value={selectedCategory}
-        onChange={(e) => onCategoryChange(e.target.value)}
-      >
-        <option value="all">All Products</option>
+        <Form.Select
+          value={selectedCategory}
+          onChange={(e) => onCategoryChange(e.target.value)}
+        >
+          <option value="all">All Products</option>
 
-        {categories.map((category) => (
-          <option key={category} value={category}>
-            {category}
-          </option>
-        ))}
-      </Form.Select>
-    </Form.Group>
+          {categories.map((category) => (
+            <option key={category} value={category}>
+              {category}
+            </option>
+          ))}
+        </Form.Select>
+      </Form.Group>
+    </div>
   );
 };
 

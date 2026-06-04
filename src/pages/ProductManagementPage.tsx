@@ -233,7 +233,7 @@ const ProductManagementPage = () => {
 
       {message && <Alert variant="success">{message}</Alert>}
 
-      <Card className="mb-4">
+      <Card className="mb-4 mx-auto" style={{ maxWidth: "800px" }}>
         <Card.Body>
           <h3>{editingProductId ? "Edit Product" : "Add Product"}</h3>
 
@@ -333,23 +333,41 @@ const ProductManagementPage = () => {
 
       <h3>Firestore Products</h3>
 
-      {products?.map((product) => (
-        <Card key={product.id} className="mb-3">
-          <Card.Body>
-            <h5>{product.title}</h5>
-            <p>${product.price.toFixed(2)}</p>
-            <p>{product.category}</p>
+      <Row>
+        {products?.map((product) => (
+          <Col lg={4} md={6} sm={12} className="mb-4" key={product.id}>
+            <Card className="h-100 shadow-sm">
+              <Card.Img
+                variant="top"
+                src={product.image}
+                alt={product.title}
+                style={{
+                  height: "180px",
+                  objectFit: "contain",
+                  padding: "1rem",
+                }}
+              />
 
-            <Button className="me-2" onClick={() => handleEdit(product)}>
-              Edit
-            </Button>
+              <Card.Body>
+                <h5>{product.title}</h5>
+                <p>${product.price.toFixed(2)}</p>
+                <p>{product.category}</p>
 
-            <Button variant="danger" onClick={() => handleDelete(product.id)}>
-              Delete
-            </Button>
-          </Card.Body>
-        </Card>
-      ))}
+                <Button className="me-2" onClick={() => handleEdit(product)}>
+                  Edit
+                </Button>
+
+                <Button
+                  variant="danger"
+                  onClick={() => handleDelete(product.id)}
+                >
+                  Delete
+                </Button>
+              </Card.Body>
+            </Card>
+          </Col>
+        ))}
+      </Row>
     </Container>
   );
 };
