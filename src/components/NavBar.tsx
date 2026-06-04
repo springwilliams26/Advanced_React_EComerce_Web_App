@@ -25,6 +25,10 @@ const NavBar = () => {
             Cart
             <span className="ms-1 badge bg-light text-dark">{totalItems}</span>
           </Nav.Link>
+
+          <Nav.Link as={Link} to="/auth">
+            Login/Register
+          </Nav.Link>
         </Nav>
       </Container>
     </Navbar>

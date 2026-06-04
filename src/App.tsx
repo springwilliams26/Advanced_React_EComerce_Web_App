@@ -3,6 +3,7 @@ import NavBar from "./components/NavBar";
 import HomePage from "./pages/HomePage";
 import CartPage from "./pages/CartPage";
 import BackToTopButton from "./components/BackToTopButton";
+import AuthPage from "./pages/AuthPage";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/cart" element={<CartPage />} />
+        <Route path="/auth" element={<AuthPage />} />
       </Routes>
 
       <BackToTopButton />
