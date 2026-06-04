@@ -24,7 +24,7 @@ const BackToTopButton = () => {
         fontSize: "1.5rem",
       }}
     >
-      ⬆
+      ↑
     </Button>
   );
 };
